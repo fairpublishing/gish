@@ -1,0 +1,6 @@
+CC="${CC:-gcc}"
+CXX="${CXX:-g++}"
+
+BUILD_TYPE="Release"
+
+packages=(zlib libpng16 samplerate "sdl -x11 -threads -opengl -audio -joystick" openal ogg vorbis)
