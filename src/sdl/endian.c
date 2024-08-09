@@ -28,6 +28,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 int bigendian;
 
+size_t (*fread2)(void *,size_t,size_t,FILE *);
+size_t (*fwrite2)(const void *,size_t,size_t,FILE *);
+
 void checkbigendian(void)
   {
   unsigned int x;
