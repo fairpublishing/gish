@@ -13,15 +13,27 @@ zlib_dep       = dependency('zlib')
 png_dep        = dependency('libpng')
 thread_dep     = dependency('threads')
 
-libm  = meson.get_compiler('c').find_library('m', required : false)
-libdl = meson.get_compiler('c').find_library('dl', required : false)
+gish_deps = [
+    opengl_dep, zlib_dep, png_dep, sdl_dep, openal_dep, ogg_dep, vorbis_dep,
+    vorbisfile_dep, thread_dep
+]
+
+cc = meson.get_compiler('c')
+
+if host_machine.system() == 'windows'
+    gish_deps += cc.find_library('dxguid', required: true)
+    gish_deps += cc.find_library('winmm', required: true)
+else
+    gish_deps += cc.find_library('m', required : false)
+    gish_deps += cc.find_library('dl', required : false)
+endif
 
 # Added because if OpenAL is compiled as a static library it needs stdc++
 # but OpenAL pkg file does not list stdc++ as a requirement
-libstdcpp = meson.get_compiler('c').find_library('stdc++')
+gish_deps += cc.find_library('stdc++')
 
 gish_link_args = []
-if meson.get_compiler('c').get_id() == 'gcc'
+if cc.get_id() == 'gcc'
     # We may include '-static-libstdc++' but it gets dynamically linked to
     # stdc++ anyway.
     gish_link_args += ['-static-libgcc']
@@ -89,16 +101,7 @@ gish_src = [
 
 executable('gish',
     sources : gish_src,
-    dependencies : [
-        opengl_dep,
-        zlib_dep,
-        png_dep,
-        sdl_dep,
-        openal_dep,
-        ogg_dep, vorbis_dep, vorbisfile_dep,
-        thread_dep,
-        libm, libdl, libstdcpp
-    ],
+    dependencies : gish_deps,
     link_args : gish_link_args,
     install : true
 )
