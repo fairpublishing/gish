@@ -5,19 +5,19 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>prince</string>
+	<string>@app_exe@</string>
 	<key>CFBundleGetInfoString</key>
-	<string>FreeGish</string>
+	<string>@app_name@</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.fairpublishing.FreeGish</string>
+	<string>org.fairpublishing.@app_name@</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleLongVersionString</key>
 	<string>@version@</string>
 	<key>CFBundleName</key>
-	<string>FreeGish</string>
+	<string>@app_name@</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
