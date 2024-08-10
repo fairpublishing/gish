@@ -113,6 +113,7 @@ executable('gish',
     sources : gish_src,
     dependencies : gish_deps,
     link_args : gish_link_args,
+    win_subsystem: 'windows',
     install : true
 )
 
