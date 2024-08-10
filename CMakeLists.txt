@@ -29,3 +29,4 @@ install(FILES "icons/freegish.desktop" DESTINATION share/applications)
 install(FILES "freegish.6" TYPE MAN)
 
 add_subdirectory(src)
+
