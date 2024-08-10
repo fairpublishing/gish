@@ -141,7 +141,6 @@ set(GISH_H
     sdl/endian.h
     sdl/event.h
     sdl/file.h
-    sdl/sdl.h
     sdl/video.h
     video/glext.h
     video/glfunc.h
