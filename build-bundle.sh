@@ -19,10 +19,10 @@ fi
 export MACOSX_DEPLOYMENT_TARGET="$1"
 
 # Note to build a package for Intel x86-64 when using an ARM macOS:
+# source env-x86-64.sh
 
-# CMAKE_OSX_ARCHITECTURES="x86_64" CPU_TYPE="x86-64" CPU_TARGET="x86-64" \
-# CC="clang -arch x86_64" CXX="clang++ -arch x86_64" \
-# OBJC="clang -arch x86_64" OBJCXX="clang++ -arch x86_64" lhelper activate build
+lhelper create build
+source "$(lhelper env-source build)"
 
 build_application() {
   rm -fr .build-bundle
