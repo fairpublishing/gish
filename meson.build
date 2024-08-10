@@ -39,6 +39,15 @@ if cc.get_id() == 'gcc'
     gish_link_args += ['-static-libgcc']
 endif
 
+if host_machine.system() == 'darwin'
+    gish_link_args += [
+        '-framework', 'CoreAudio',
+        '-framework', 'AudioToolbox',
+        '-framework', 'IOKit',
+        '-framework', 'Carbon',
+    ]
+endif
+
 gish_src = [
     'audio/audio.c',
     'game/ai.c',
@@ -98,6 +107,11 @@ gish_src = [
     'video/texture.c',
     'main.c',
 ]
+
+if host_machine.system() == 'darwin'
+    add_languages('objc')
+    gish_src += 'video/macosdpi.m'
+endif
 
 executable('gish',
     sources : gish_src,

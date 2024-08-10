@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdio.h>
 #include <limits.h>
 
-#if defined(LINUX) || defined(__FreeBSD__) || defined(__MINGW64__)
+#if defined(LINUX) || defined(__FreeBSD__) || defined(__MINGW64__) || defined(__APPLE__)
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>

@@ -5,6 +5,8 @@ BUILD_TYPE="Release"
 
 if [[ "$OSTYPE" == "msys" ]]; then
     packages=(zlib libpng16 samplerate "sdl -threads -opengl -audio -joystick" openal ogg vorbis)
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    packages=(zlib libpng16 samplerate "sdl -threads -opengl -audio -joystick" openal ogg vorbis)
 else
     packages=(zlib libpng16 samplerate "sdl -x11 -threads -opengl -audio -joystick" openal ogg vorbis)
 fi
