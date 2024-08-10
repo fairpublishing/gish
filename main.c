@@ -80,6 +80,10 @@ Uint8 iconmask[128]={
 0x00,0x7F,0xFF,0xF0,
 0x00,0x00,0x00,0x00 };
 
+#ifdef GISH_USE_BUNDLE
+extern void chdir_macos_bundle_resources();
+#endif
+
 int main (int argc,char *argv[])
   {
   int count;
@@ -88,7 +92,9 @@ int main (int argc,char *argv[])
   
   /*printf("ABC");*/
 
-#ifdef DATAPATH
+#ifdef GISH_USE_BUNDLE
+  chdir_macos_bundle_resources();
+#elif defined(DATAPATH)
   chdir(DATAPATH);
 #endif
 

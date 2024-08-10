@@ -1,0 +1,2 @@
+option('bundle', type : 'boolean', value : false, description: 'Build a macOS bundle')
+option('macos_target', type : 'string', value : '10.11', description : 'Target version for macOS')

@@ -22,6 +22,7 @@ else
     gish_deps += cc.find_library('dl', required : false)
 endif
 
+gish_c_args = []
 gish_link_args = []
 if cc.get_id() == 'gcc'
     gish_link_args += ['-static-libgcc', '-static-libstdc++']
@@ -106,6 +107,10 @@ gish_src += 'dummy.cpp'
 if host_machine.system() == 'darwin'
     add_languages('objc')
     gish_src += 'video/macosdpi.m'
+    if get_option('bundle')
+        gish_src += 'macosbundle.m'
+        gish_c_args += '-DGISH_USE_BUNDLE'
+    endif
 endif
 
 # The following can be added below in c_args: '-DDATAPATH="/usr/share/games/gish"'
@@ -113,12 +118,33 @@ endif
 executable('gish',
     sources : gish_src,
     dependencies : gish_deps,
+    c_args: gish_c_args,
     link_args : gish_link_args,
     win_subsystem: 'windows',
     install : true
 )
 
+if host_machine.system() == 'darwin'
+    conf_data = configuration_data({
+        'version': meson.project_version(),
+        'macos_target': get_option('macos_target'),
+        'app_name': 'FreeGish',
+        'app_exe': 'gish',
+    })
+    configure_file(
+        input : 'resources/Info.plist.in',
+        output : 'Info.plist',
+        configuration : conf_data,
+        install : true,
+        install_dir : 'Contents'
+    )
+    install_data('resources/icon.icns', install_dir : 'Contents/Resources')
+    data_dir = 'Contents/Resources'
+else
+    data_dir = get_option('prefix')
+endif
+
 foreach dirname : ['animation', 'level', 'music', 'sound', 'texture']
-    install_subdir(dirname, install_dir : get_option('prefix'))
+    install_subdir(dirname, install_dir : data_dir)
 endforeach
 
