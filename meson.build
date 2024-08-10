@@ -1,4 +1,4 @@
-project('Gish', 'c')
+project('Gish', 'c', 'cpp')
 
 gish_deps = [
     dependency('sdl'),
@@ -22,15 +22,9 @@ else
     gish_deps += cc.find_library('dl', required : false)
 endif
 
-# Added because if OpenAL is compiled as a static library it needs stdc++
-# but OpenAL pkg file does not list stdc++ as a requirement
-gish_deps += cc.find_library('stdc++')
-
 gish_link_args = []
 if cc.get_id() == 'gcc'
-    # We may include '-static-libstdc++' but it gets dynamically linked to
-    # stdc++ anyway.
-    gish_link_args += ['-static-libgcc']
+    gish_link_args += ['-static-libgcc', '-static-libstdc++']
 endif
 
 if host_machine.system() == 'darwin'
@@ -101,6 +95,13 @@ gish_src = [
     'video/texture.c',
     'main.c',
 ]
+
+# Added because if OpenAL is compiled as a static library it needs stdc++
+# but OpenAL pkg file does not list stdc++ as a requirement.
+# It seems the better is to make Meson use g++ to link the executable so
+# we add a dummy c++ source file.
+# In this way the -static-libstdc++ is actually honored.
+gish_src += 'dummy.cpp'
 
 if host_machine.system() == 'darwin'
     add_languages('objc')
