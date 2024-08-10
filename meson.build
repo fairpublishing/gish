@@ -1,21 +1,15 @@
 project('Gish', 'c')
 
-# Uncomment and modify this line to set a hardcoded data path
-# add_global_arguments('-DDATAPATH="/usr/share/games/gish"', language : 'c')
-
-sdl_dep        = dependency('sdl')
-openal_dep     = dependency('openal')
-opengl_dep     = dependency('gl')
-ogg_dep        = dependency('ogg')
-vorbis_dep     = dependency('vorbis')
-vorbisfile_dep = dependency('vorbisfile')
-zlib_dep       = dependency('zlib')
-png_dep        = dependency('libpng')
-thread_dep     = dependency('threads')
-
 gish_deps = [
-    opengl_dep, zlib_dep, png_dep, sdl_dep, openal_dep, ogg_dep, vorbis_dep,
-    vorbisfile_dep, thread_dep
+    dependency('sdl'),
+    dependency('openal'),
+    dependency('gl'),
+    dependency('ogg'),
+    dependency('vorbis'),
+    dependency('vorbisfile'),
+    dependency('zlib'),
+    dependency('libpng'),
+    dependency('threads'),
 ]
 
 cc = meson.get_compiler('c')
@@ -113,10 +107,16 @@ if host_machine.system() == 'darwin'
     gish_src += 'video/macosdpi.m'
 endif
 
+# The following can be added below in c_args: '-DDATAPATH="/usr/share/games/gish"'
+# to change the data directory.
 executable('gish',
     sources : gish_src,
     dependencies : gish_deps,
     link_args : gish_link_args,
     install : true
 )
+
+foreach dirname : ['animation', 'level', 'music', 'sound', 'texture']
+    install_subdir(dirname, install_dir : get_option('prefix'))
+endforeach
 
