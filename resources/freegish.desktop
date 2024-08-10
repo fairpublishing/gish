@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=FreeGish
+Exec=gish
+Icon=freegish
+Comment=Free version of the Gish game
+Terminal=false
+Categories=Game;
+
