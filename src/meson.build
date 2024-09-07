@@ -1,4 +1,3 @@
-
 gish_src = [
     'audio/audio.c',
     'game/ai.c',
@@ -59,13 +58,6 @@ gish_src = [
     'main.c',
 ]
 
-# Added because if OpenAL is compiled as a static library it needs stdc++
-# but OpenAL pkg file does not list stdc++ as a requirement.
-# It seems the better is to make Meson use g++ to link the executable so
-# we add a dummy c++ source file.
-# In this way the -static-libstdc++ is actually honored.
-gish_src += 'dummy.cpp'
-
 if host_machine.system() == 'darwin'
     add_languages('objc')
     gish_src += 'video/macosdpi.m'
@@ -77,11 +69,17 @@ endif
 
 # The following can be added below in c_args: '-DDATAPATH="/usr/share/games/gish"'
 # to change the data directory.
+# We use the option link_language : 'cpp'
+# because if OpenAL is compiled as a static library it needs stdc++
+# but OpenAL pkg file does not list stdc++ as a requirement.
+# It seems the better is to make Meson use g++ to link the executable.
+# In this way the -static-libstdc++ is actually honored.
 executable('gish',
     sources : gish_src,
     dependencies : gish_deps,
     c_args: gish_c_args,
     link_args : gish_link_args,
+    link_language : 'cpp',
     win_subsystem: 'windows',
     install : true
 )
