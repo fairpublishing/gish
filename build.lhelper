@@ -4,9 +4,9 @@ CXX="${CXX:-g++}"
 BUILD_TYPE="Release"
 
 if [[ "$OSTYPE" == "msys" ]]; then
-    packages=(zlib libpng16 samplerate "sdl -threads -opengl -audio -joystick" openal ogg vorbis)
+    packages=(zlib libpng16 samplerate "sdl2 -threads -opengl -audio -joystick" openal ogg vorbis)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    packages=(zlib libpng16 samplerate "sdl -threads -opengl -audio -joystick" openal ogg vorbis)
+    packages=(zlib libpng16 samplerate "sdl2 -render -threads -opengl -audio -joystick" openal ogg vorbis)
 else
-    packages=(zlib libpng16 samplerate "sdl -x11 -threads -opengl -audio -joystick" openal ogg vorbis)
+    packages=(zlib libpng16 samplerate "sdl2 -x11 -threads -opengl -audio -joystick" openal ogg vorbis)
 fi

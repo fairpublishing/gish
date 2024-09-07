@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 void checkkeyboard(void);
 
-#include "../sdl/sdl.h"
+#include <SDL.h>
 
 extern unsigned char keyboard[SDL_NUM_SCANCODES];
 extern unsigned char prevkeyboard[SDL_NUM_SCANCODES];
