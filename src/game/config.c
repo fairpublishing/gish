@@ -128,8 +128,8 @@ void loadconfig(void)
   char tempstr[32];
   char path[PATH_MAX];
 
-  config.resolutionx=800;
-  config.resolutiony=600;
+  config.resolutionx=1000;
+  config.resolutiony=750;
   config.bitsperpixel=32;
   config.depthbits=24;
   config.stencilbits=8;
