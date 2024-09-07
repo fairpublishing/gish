@@ -59,6 +59,7 @@ if host_machine.system() == 'darwin'
 else
     data_dir = get_option('prefix')
 endif
+install_data('freegish.bmp', install_dir : data_dir)
 
 foreach dirname : ['animation', 'level', 'music', 'sound', 'texture']
     install_subdir(dirname, install_dir : data_dir)
