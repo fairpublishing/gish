@@ -30,34 +30,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 _mouse mouse, prevmouse;
 
-#ifdef __APPLE__
-extern int getmacosbackingscalefactor();
-static int scale_factor = -1;
-#endif
-
 void checkmouse(void)
   {
   Uint8 buttons;
 
-#ifdef __APPLE__
-  if (scale_factor < 0) {
-    scale_factor = getmacosbackingscalefactor();
-  }
-#else
-  const int scale_factor = 1;
-#endif
-
   memcpy(&prevmouse,&mouse,sizeof(mouse));
   //buttons=SDL_GetRelativeMouseState(&mouse.xdif,&mouse.ydif); 
   //SDL_PumpEvents();
-  buttons=SDL_GetMouseState(&mouse.x,&mouse.y);
-
-  // The scale_factor correction was figured out empirically by observing
-  // the actual mouse coordinates provided by SDL_GetMouseState on macOS.
-  // The correction is correct on macOS for scaling factor of 1 and 2. Beyond 2
-  // it was not tested and maybe correct or not.
-  mouse.x=scale_factor*mouse.x*640/windowinfo.resolutionx;
-  mouse.y=scale_factor*(mouse.y - windowinfo.resolutiony*(scale_factor-1)/scale_factor)*480/windowinfo.resolutiony;
+  buttons=SDL_GetMouseState(&mouse.x,&mouse.y); 
+  mouse.x=mouse.x*640/windowinfo.resolutionx;
+  mouse.y=mouse.y*480/windowinfo.resolutiony;
 
   mouse.xdif=mouse.x-prevmouse.x;
   mouse.ydif=mouse.y-prevmouse.y;
