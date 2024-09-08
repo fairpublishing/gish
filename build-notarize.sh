@@ -3,7 +3,6 @@
 set -e
 
 app_name=FreeGish
-exe_name=gish
 
 if [ $# -lt 2 ]; then
   echo "usage: $0 <version> <macos-target>"
@@ -24,8 +23,16 @@ version="$1"
 macos_target="$2"
 app_name_low="${app_name,,}"
 
-arch="$CPU_TYPE"
-if [[ $ARCH == "x86-64" ]]; then
+get_arch () {
+  if [ -z ${CPU_TYPE+x} ]; then
+    uname -m
+  else
+    echo "$CPU_TYPE"
+  fi
+}
+
+arch="$(get_arch)"
+if [[ $arch == "x86-64" ]]; then
   arch="x86_64"
 fi
 
