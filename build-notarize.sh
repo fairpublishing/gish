@@ -44,12 +44,20 @@ app_path="${app_name}.app"
 
 echo "APP PATH: $app_path"
 
-exe_file="$app_path/Contents/MacOS/$exe_name"
-
 # Fortify the runtime
 codesign -f -o runtime --deep --timestamp -s "Developer ID Application: ${APPLE_DEV_APPLICATION}" "${app_path}"
 
-hdiutil create -volname "$app_name_low" -srcfolder "${app_path}" -ov -format UDBZ "${app_name_low}-${arch}.dmg"
+generate_random_letters() {
+    local letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    local result=""
+    for i in {1..3}; do
+        local index=$((RANDOM % 26))
+        result="${result}${letters:$index:1}"
+    done
+    echo "$result"
+}
+
+hdiutil create -volname "${app_name_low}-$(generate_random_letters)" -srcfolder "${app_path}" -ov -format UDBZ "${app_name_low}-${arch}.dmg"
 
 codesign -s "Developer ID Application: ${APPLE_DEV_APPLICATION}" --timestamp "${app_name_low}-${arch}.dmg"
 codesign -v "${app_path}"
