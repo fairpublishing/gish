@@ -77,7 +77,7 @@ show_help() {
   echo "Usage: $0 [options]"
   echo ""
   echo "Options:"
-x  echo "  --create-placeholders               Create placeholders"
+  echo "  --create-placeholders               Create placeholders"
   echo "  --create-placeholders-from-image    Create placeholders from exiting image"
   echo "  --create-icns                       Create .icns from images"
   echo "  --help                              Show this help"
