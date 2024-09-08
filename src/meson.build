@@ -60,7 +60,6 @@ gish_src = [
 
 if host_machine.system() == 'darwin'
     add_languages('objc')
-    gish_src += 'video/macosdpi.m'
     if get_option('bundle')
         gish_src += 'macosbundle.m'
         gish_c_args += '-DGISH_USE_BUNDLE'
