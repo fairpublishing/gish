@@ -60,7 +60,7 @@ generate_appimage() {
   strip "${app_name}.AppDir/AppRun"
 
   cp resources/freegish.desktop "${app_name}.AppDir/${app_name}.desktop"
-  cp resources/freegish.png "${app_name}.AppDir/freegish.png"
+  cp icons/freegish.png "${app_name}.AppDir/freegish.png"
 
   echo "Generating AppImage..."
 
