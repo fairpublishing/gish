@@ -52,7 +52,7 @@ unsigned int rotint(unsigned int x,int rotnum)
 void launchwebpage(char *webpagename)
   {
 #ifdef WINDOWS
-  SDL_WM_IconifyWindow();
+  SDL_MinimizeWindow(globalwindow);
   ShellExecuteA(NULL,"open",webpagename,"","c:\\",SW_SHOWNORMAL);
 #endif
 #ifdef MAC

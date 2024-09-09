@@ -56,6 +56,7 @@ gish_src = [
     'video/text.c',
     'video/texture.c',
     'main.c',
+    'dummy.cpp',
 ]
 
 if host_machine.system() == 'darwin'
@@ -78,7 +79,6 @@ executable('gish',
     dependencies : gish_deps,
     c_args: gish_c_args,
     link_args : gish_link_args,
-    link_language : 'cpp',
     win_subsystem: 'windows',
     install : true
 )
